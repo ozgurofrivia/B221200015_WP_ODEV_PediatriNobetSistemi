@@ -1,0 +1,40 @@
+﻿@model List<B221200015_WP_ODEV.Models.Randevu>
+
+@{
+    ViewData["Title"] = "Randevu Yönetimi";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Randevu Yönetimi</h2>
+    <div class="text-right mb-3">
+        <a asp-action="RandevuAdd" class="btn btn-success">Yeni Randevu Ekle</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Asistan</th>
+                <th>Hoca</th>
+                <th>Tarih</th>
+                <th>Saat</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var randevu in Model)
+            {
+                <tr>
+                    <td>@randevu.Id</td>
+                    <td>@randevu.Asistan.Ad @randevu.Asistan.Soyad</td>
+                    <td>@randevu.Hoca.Ad @randevu.Hoca.Soyad</td>
+                    <td>@randevu.Tarih</td>
+                    <td>@randevu.Saat</td>
+                    <td>
+                        <a asp-action="RandevuUpdate" asp-route-id="@randevu.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a asp-action="RandevuDelete" asp-route-id="@randevu.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

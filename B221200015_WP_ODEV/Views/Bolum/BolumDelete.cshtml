@@ -1,0 +1,18 @@
+﻿@model B221200015_WP_ODEV.Models.Bolum
+
+@{
+    ViewData["Title"] = "Bolum Sil";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-danger">Hoca Sil</h2>
+    <p class="text-center">Bu işlemi gerçekleştirdiğinizde aşağıdaki randevu kalıcı olarak silinecektir:</p>
+    <div class="text-center">
+        <h4>@Model.BolumAdi
+    </div>
+    <form asp controller="Bolum" asp-action="BolumDelete" method="post">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger mt-3">Sil</button>
+        <a asp-action="Bolum" class="btn btn-secondary mt-3">Vazgeç</a>
+    </form>
+</div>

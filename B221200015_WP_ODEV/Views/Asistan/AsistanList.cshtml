@@ -1,0 +1,42 @@
+﻿@model List<B221200015_WP_ODEV.Models.Asistan>
+
+@{
+    ViewData["Title"] = "Asistan Yönetimi";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Asistan Yönetimi</h2>
+    <div class="text-right mb-3">
+        <a asp-action="AsistanAdd" class="btn btn-success">Yeni Asistan Ekle</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Telefon</th>
+                <th>E-posta</th>
+                <th>Bölüm</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var asistan in Model)
+            {
+                <tr>
+                    <td>@asistan.Id</td>
+                    <td>@asistan.Ad</td>
+                    <td>@asistan.Soyad</td>
+                    <td>@asistan.Telefon</td>
+                    <td>@asistan.Mail</td>
+                    <td>@(asistan.Bolum != null ? asistan.Bolum.BolumAdi : "Bölüm Yok")</td>
+                    <td>
+                        <a asp-action="AsistanUpdate" asp-route-id="@asistan.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a asp-action="AsistanDelete" asp-route-id="@asistan.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

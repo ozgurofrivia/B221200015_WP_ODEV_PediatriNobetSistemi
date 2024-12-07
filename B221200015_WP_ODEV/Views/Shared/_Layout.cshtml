@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Özel Stil Dosyası -->
+    <link rel="stylesheet" href="~/css/site.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <h1>Pediatri Nöbet Yönetim Sistemi</h1>
+        </div>
+    </header>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="/">Anasayfa</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/Asistan/Asistan">Asistanlar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Hoca/Hoca">Hocalar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Bolum/Bolum">Bölümler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Takvim/Takvim">Nöbet Takvimi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Randevu/Randevu">Randevu</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item"><a class="nav-link" href="/Acil/Acil">Acil Durumlar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Admin/Admin">Admin Paneli</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Login/Logout">Çıkış Yap (@User.Identity.Name)</a></li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a class="nav-link" href="/Login/Login">Giriş Yap</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="container my-5">
+        @RenderBody() <!-- İçeriğin burada yükleneceği yer -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p>&copy; 2024 Pediatri Nöbet Yönetim Sistemi. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- RenderSection: Opsiyonel Scriptler -->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

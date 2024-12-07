@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Bölümler";
+    Layout = "_Layout";
+}
+
+<h2 class="text-center">Bölümler Listesi</h2>
+<p class="text-center">Bu sayfada bölümlerin listesini görebilirsiniz.</p>
+
+<!-- Örnek veri tablosu -->
+<table class="table table-bordered mt-4">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Bölüm Adı</th>
+            <th>Hasta Sayısı</th>
+            <th>Boş Yatak Sayısı</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Model'den gelen verilerle doldurulacak -->
+        @foreach (var bolum in Model)
+        {
+                <tr>
+                    <td>@bolum.Id</td>
+                    <td>@bolum.BolumAdi</td>
+                    <td>@bolum.HastaSayisi</td>
+                    <td>@bolum.BosYatakSayisi</td>
+                </tr>
+        }
+    </tbody>
+</table>

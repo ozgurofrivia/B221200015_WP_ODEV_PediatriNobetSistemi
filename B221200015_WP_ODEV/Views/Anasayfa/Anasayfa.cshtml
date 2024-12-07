@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Anasayfa";
+    Layout = "_Layout"; // Layout'u belirtiyoruz
+}
+
+<section>
+    <h1 class="text-center mb-4">Pediatri Nöbet Yönetim Sistemi</h1>
+    <p class="text-center">Bu sistem, pediatri bölümünde nöbetlerin planlanmasını, yönetilmesini ve randevu süreçlerinin kolaylaştırılmasını sağlar.</p>
+
+    <div class="row mt-5">
+        <!-- Hızlı Erişim Kartları -->
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Asistanlar</h5>
+                    <p class="card-text">Tüm asistanların nöbet planlarını ve iletişim bilgilerini görüntüleyin.</p>
+                    <a href="/Asistan" class="btn btn-primary">Asistan Listesi</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Hocalar</h5>
+                    <p class="card-text">Hocaların randevu saatlerini ve nöbet detaylarını inceleyin.</p>
+                    <a href="/Hoca" class="btn btn-secondary">Hoca Listesi</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Raporlama</h5>
+                    <p class="card-text">Geçmiş nöbet kayıtları ve raporlara erişim sağlayın.</p>
+                    <a href="/Raporlama" class="btn btn-success">Raporlama</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5 text-center">
+        <h2>Öne Çıkan Özellikler</h2>
+        <ul class="list-unstyled">
+            <li>✅ Kullanıcı dostu arayüz</li>
+            <li>✅ Hızlı nöbet planlama</li>
+            <li>✅ Detaylı raporlama ve analiz</li>
+            <li>✅ Kolay iletişim yönetimi</li>
+        </ul>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p class="small">&copy; 2024 Pediatri Nöbet Yönetim Sistemi. Tüm hakları saklıdır.</p>
+    </footer>
+</section>
+

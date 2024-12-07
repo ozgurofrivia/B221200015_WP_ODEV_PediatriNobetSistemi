@@ -1,0 +1,20 @@
+﻿@model B221200015_WP_ODEV.Models.Asistan
+
+@{
+    ViewData["Title"] = "Asistan Sil";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-danger">Asistan Sil</h2>
+    <p class="text-center">Bu işlemi gerçekleştirdiğinizde aşağıdaki asistan kalıcı olarak silinecektir:</p>
+    <div class="text-center">
+        <h4>@Model.Ad @Model.Soyad</h4>
+        <p>@Model.Mail</p>
+        <p>Bölüm: @Model.Bolum.BolumAdi</p>
+    </div>
+    <form asp controller="Asistan" asp-action="AsistanDelete" method="post">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger mt-3">Sil</button>
+        <a asp-action="Asistan" class="btn btn-secondary mt-3">Vazgeç</a>
+    </form>
+</div>

@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Yeni Hoca Ekle";
+}
+
+@model Hoca
+
+<div class="container mt-4">
+    <h2 class="text-center">Yeni Hoca Ekle</h2>
+    <form asp-controller = "Hoca" asp-action="HocaAdd" method="post">
+        <div class="form-group">
+            <label asp-for="Ad"></label>
+            <input asp-for="Ad" class="form-control" />
+            <span asp-validation-for="Ad" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Soyad"></label>
+            <input asp-for="Soyad" class="form-control" />
+            <span asp-validation-for="Soyad" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Telefon"></label>
+            <input asp-for="Telefon" class="form-control" />
+            <span asp-validation-for="Telefon" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Mail"></label>
+            <input asp-for="Mail" type="email" class="form-control" />
+            <span asp-validation-for="Mail" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="BolumId"></label>
+            <select asp-for="BolumId" class="form-control">
+                @foreach (var bolum in ViewBag.Bolumler as List<B221200015_WP_ODEV.Models.Bolum>)
+                {
+                    <option value="@bolum.Id">@bolum.BolumAdi</option>
+                }
+            </select>
+            <span asp-validation-for="BolumId" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+﻿@model List<B221200015_WP_ODEV.Models.Bolum>
+
+@{
+    ViewData["Title"] = "Bolum Yönetimi";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Bolum Yönetimi</h2>
+    <div class="text-right mb-3">
+        <a asp-action="BolumAdd" class="btn btn-success">Yeni Bolum Ekle</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Bölüm Adı</th>
+                <th>Hasta Sayısı</th>
+                <th>Boş Yatak Sayısı</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bolum in Model)
+            {
+                <tr>
+                    <td>@bolum.Id</td>
+                    <td>@bolum.BolumAdi</td>
+                    <td>@bolum.HastaSayisi</td>
+                    <td>@bolum.BosYatakSayisi</td>
+                    <td>
+                        <a asp-action="BolumUpdate" asp-route-id="@bolum.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a asp-action="BolumDelete" asp-route-id="@bolum.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

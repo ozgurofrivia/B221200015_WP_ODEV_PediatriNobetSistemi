@@ -1,0 +1,35 @@
+﻿@model List<B221200015_WP_ODEV.Models.Hoca>
+
+@{
+    ViewData["Title"] = "Hoca Yönetimi";
+}
+
+<h2 class="text-center">Bölümler Listesi</h2>
+<p class="text-center">Bu sayfada bölümlerin listesini görebilirsiniz.</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Telefon</th>
+            <th>E-posta</th>
+            <th>Bölüm</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hoca in Model)
+        {
+            <tr>
+                <td>@hoca.Id</td>
+                <td>@hoca.Ad</td>
+                <td>@hoca.Soyad</td>
+                <td>@hoca.Telefon</td>
+                <td>@hoca.Mail</td>
+                <td>@(hoca.Bolum != null ? hoca.Bolum.BolumAdi : "Bölüm Yok")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

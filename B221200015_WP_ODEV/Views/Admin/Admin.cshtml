@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Admin Paneli";
+    Layout = "_Layout";
+}
+
+<h1 class="text-center mt-4">Admin Paneli</h1>
+<p class="text-center">Bu sayfadan tüm sistem verilerini yönetin.</p>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-primary text-white">
+                    Asistan Yönetimi
+                </div>
+                <div class="card-body">
+                    <p>Asistan ekleme, silme ve düzenleme işlemleri.</p>
+                    <a asp-controller="Asistan" asp-action="AsistanList" class="btn btn-success">Yönet</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-success text-white">
+                    Hoca Yönetimi
+                </div>
+                <div class="card-body">
+                    <p>Hoca ekleme, silme ve düzenleme işlemleri.</p>
+                    <a asp-controller="Hoca" asp-action="HocaList" class="btn btn-success">Yönet</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-info text-white">
+                    Bölüm Yönetimi
+                </div>
+                <div class="card-body">
+                    <p>Bölüm bilgilerini düzenleme işlemleri.</p>
+                    <a asp-controller="Bolum" asp-action="BolumList" class="btn btn-info">Yönet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header bg-warning text-white">
+                    Randevu Yönetimi
+                </div>
+                <div class="card-body">
+                    <p>Randevu oluşturma ve düzenleme işlemleri.</p>
+                    <a asp-controller="Randevu" asp-action="RandevuList" class="btn btn-warning">Yönet</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header bg-danger text-white">
+                    Nöbet Yönetimi
+                </div>
+                <div class="card-body">
+                    <p>Nöbet takvimini görüntüleme ve düzenleme.</p>
+                    <a asp-controller="Nobet" asp-action="NobetList" class="btn btn-danger">Yönet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

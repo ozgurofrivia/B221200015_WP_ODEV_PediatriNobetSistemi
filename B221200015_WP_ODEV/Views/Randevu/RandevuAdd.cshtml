@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Yeni Randevu Ekle";
+}
+
+@model B221200015_WP_ODEV.Models.Randevu
+
+<div class="container mt-4">
+    <h2 class="text-center">Yeni Randevu Ekle</h2>
+    <form asp-controller="Randevu" asp-action="RandevuAdd" method="post">
+        <div class="form-group">
+            <label asp-for="Asistan"></label>
+            <select asp-for="AsistanId" class="form-control">
+                @foreach (var asistan in ViewBag.Asistanlar as List<B221200015_WP_ODEV.Models.Asistan>)
+                {
+                    <option value="@asistan.Id">@asistan.Ad @asistan.Soyad</option>
+                }
+            </select>
+            <span asp-validation-for="AsistanId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Hoca"></label>
+            <select asp-for="HocaId" class="form-control">
+                @foreach (var hoca in ViewBag.Hocalar as List<B221200015_WP_ODEV.Models.Hoca>)
+                {
+                    <option value="@hoca.Id">@hoca.Ad @hoca.Soyad</option>
+                }
+            </select>
+            <span asp-validation-for="HocaId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tarih">Randevu Tarihi</label>
+            <input asp-for="Tarih" class="form-control" type="date" />
+            <span asp-validation-for="Tarih" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Saat">Randevu Saati</label>
+            <input asp-for="Saat" class="form-control" type="time" />
+            <span asp-validation-for="Saat" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+</div>

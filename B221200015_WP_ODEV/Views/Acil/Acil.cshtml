@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Acil Durumlar";
+}
+
+<h2>Acil Durumlar</h2>
+
+<form asp-action="Yayinla" method="post">
+    <div class="mb-3">
+        <label for="mesaj" class="form-label">Acil Durum Mesajı:</label>
+        <textarea id="mesaj" name="mesaj" class="form-control" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Yayınla</button>
+</form>
+
+@if (ViewBag.Mesaj != null)
+{
+    <div class="alert alert-success mt-3">@ViewBag.Mesaj</div>
+}

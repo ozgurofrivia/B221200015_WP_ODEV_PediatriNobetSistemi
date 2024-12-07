@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Asistanlar";
+    Layout = "_Layout";
+}
+
+@model List<B221200015_WP_ODEV.Models.Asistan>
+
+<h2 class="text-center">Asistanlar Listesi</h2>
+<p class="text-center">Bu sayfada asistanların listesini görebilirsiniz.</p>
+
+<!-- Örnek veri tablosu -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Telefon</th>
+            <th>E-posta</th>
+            <th>Bölüm</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var asistan in Model)
+        {
+            <tr>
+                <td>@asistan.Id</td>
+                <td>@asistan.Ad</td>
+                <td>@asistan.Soyad</td>
+                <td>@asistan.Telefon</td>
+                <td>@asistan.Mail</td>
+                <td>@(asistan.Bolum != null ? asistan.Bolum.BolumAdi : "Bölüm Yok")</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+

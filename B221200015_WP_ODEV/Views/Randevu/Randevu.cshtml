@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Randevular";
+    Layout = "_Layout";
+}
+
+<h2 class="text-center">Randevular</h2>
+<p class="text-center">Bu sayfada randevu bilgilerini görebilirsiniz.</p>
+
+<!-- Örnek veri tablosu -->
+<table class="table table-bordered mt-4">
+    <thead>
+        <tr>
+            <th>Asistan</th>
+            <th>Hoca</th>
+            <th>Tarih</th>
+            <th>Saat</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Model'den gelen verilerle doldurulacak -->
+        @foreach (var randevu in Model)
+        {
+            <tr>
+                <td>@randevu.Asistan.Ad @randevu.Asistan.Soyad</td>
+                <td>@randevu.Hoca.Ad @randevu.Hoca.Soyad</td>
+                <td>@randevu.Tarih.ToShortDateString()</td>
+                <td>@randevu.Saat</td>
+            </tr>
+        }
+    </tbody>
+</table>

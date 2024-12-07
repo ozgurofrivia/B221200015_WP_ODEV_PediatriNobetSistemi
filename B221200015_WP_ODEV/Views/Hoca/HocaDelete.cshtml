@@ -1,0 +1,20 @@
+﻿@model B221200015_WP_ODEV.Models.Hoca
+
+@{
+    ViewData["Title"] = "Hoca Sil";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-danger">Hoca Sil</h2>
+    <p class="text-center">Bu işlemi gerçekleştirdiğinizde aşağıdaki hoca kalıcı olarak silinecektir:</p>
+    <div class="text-center">
+        <h4>@Model.Ad @Model.Soyad</h4>
+        <p>@Model.Mail</p>
+        <p>Bölüm: @Model.Bolum.BolumAdi</p>
+    </div>
+    <form asp controller="Hoca" asp-action="HocaDelete" method="post">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger mt-3">Sil</button>
+        <a asp-action="Hoca" class="btn btn-secondary mt-3">Vazgeç</a>
+    </form>
+</div>
