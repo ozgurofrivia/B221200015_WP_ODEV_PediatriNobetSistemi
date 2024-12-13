@@ -61,7 +61,19 @@ namespace B221200015_WP_ODEV.Data
                 .HasForeignKey(n => n.BolumId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Bolum - Hasta ilişkisi (Cascade - Örnek olarak eklenmiştir, gerekirse kaldırabilirsiniz)
+            // Hoca - HocaMüsaitlik ilişkisi (Cascade)
+            modelBuilder.Entity<HocaMusaitlik>()
+                .HasOne(r => r.Hoca)
+                .WithMany(h => h.HocaMusaitlikler)
+                .HasForeignKey(r => r.HocaId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Bolum - Hasta ilişkisi (Cascade)
+            modelBuilder.Entity<Hasta>()
+                .HasOne(n => n.Bolum)
+                .WithMany(b => b.Hastalar)
+                .HasForeignKey(n => n.BolumId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -73,6 +85,9 @@ namespace B221200015_WP_ODEV.Data
         public DbSet<Nobet> Nobetler { get; set; }
         public DbSet<Randevu> Randevular { get; set; }
         public DbSet<AcilDurum> AcilDurumlar { get; set; }
+        public DbSet<Hasta> Hastalar { get; set; }
+        public DbSet<HocaMusaitlik> HocaMusaitlikler { get; set; }
+
     }
 
 }

@@ -6,6 +6,7 @@ namespace B221200015_WP_ODEV.Models
     public class Nobet
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } // Primary Key
         [ForeignKey("AsistanId")]
         public int AsistanId { get; set; } // Foreign Key

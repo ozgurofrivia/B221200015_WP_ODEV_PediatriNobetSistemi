@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace B221200015_WP_ODEV.Models
 {
     public class Bolum
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } // Primary Key
         [Required]
         public string BolumAdi { get; set; }

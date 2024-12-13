@@ -6,7 +6,8 @@
 <h2 class="text-center">Randevular</h2>
 <p class="text-center">Bu sayfada randevu bilgilerini görebilirsiniz.</p>
 
-<!-- Örnek veri tablosu -->
+<a asp-controller="HocaMusaitlik" asp-action="HocaMusaitlik" class="btn btn-primary float-end mb-3">Hoca Müsaitlikler</a>
+
 <table class="table table-bordered mt-4">
     <thead>
         <tr>
@@ -17,7 +18,6 @@
         </tr>
     </thead>
     <tbody>
-        <!-- Model'den gelen verilerle doldurulacak -->
         @foreach (var randevu in Model)
         {
             <tr>

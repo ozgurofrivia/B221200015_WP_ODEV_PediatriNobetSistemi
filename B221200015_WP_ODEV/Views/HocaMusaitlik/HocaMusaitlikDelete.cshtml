@@ -1,0 +1,20 @@
+﻿@model B221200015_WP_ODEV.Models.HocaMusaitlik
+
+@{
+    ViewData["Title"] = "Müsaitlik Sil";
+    Layout = "_Layout";
+}
+
+<h2>Müsaitlik Sil</h2>
+
+<div>
+    <p><strong>Hoca:</strong> @Model.Hoca.Ad @Model.Hoca.Soyad</p>
+    <p><strong>Tarih:</strong> @Model.Tarih.ToShortDateString()</p>
+    <p><strong>Saat:</strong> @Model.Saat</p>
+</div>
+
+<form asp-controller = "HocaMusaitlik" asp-action="HocaMusaitlikDelete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

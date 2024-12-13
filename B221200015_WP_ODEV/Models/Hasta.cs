@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 public class Hasta
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; } // Primary Key
     [Required]
     public string Ad { get; set; }
