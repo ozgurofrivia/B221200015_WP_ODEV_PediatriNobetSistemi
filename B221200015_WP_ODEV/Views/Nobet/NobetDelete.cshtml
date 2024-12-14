@@ -1,0 +1,23 @@
+﻿@model B221200015_WP_ODEV.Models.Nobet
+
+@{
+    ViewData["Title"] = "Nobet Sil";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-danger">Nobet Sil</h2>
+    <p class="text-center">Bu işlemi gerçekleştirdiğinizde aşağıdaki nöbet kalıcı olarak silinecektir:</p>
+    <div class="text-center">
+        <h4>@Model.Asistan.Ad @Model.Asistan.Soyad - @Model.Bolum.BolumAdi</h4>
+        <p>@Model.BaslamaTarihi </p>
+        <p>@Model.BaslamaSaati</p>
+        <p>@Model.BitisTarihi</p>
+        <p>@Model.BitisSaati</p>
+        <p>Yukarıdaki bilgilere sahip nöbet ataması kaldırılacaktır.</p>
+    </div>
+    <form asp controller="Nobet" asp-action="NobetDelete" method="post">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger mt-3">Sil</button>
+        <a asp-action="Nobet" class="btn btn-secondary mt-3">Vazgeç</a>
+    </form>
+</div>

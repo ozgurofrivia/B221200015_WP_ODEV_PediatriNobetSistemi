@@ -1,0 +1,59 @@
+﻿/* Genel Animasyon Ayarları */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar link hover efekti */
+.navbar-nav .nav-link {
+    transition: color 0.3s ease, background-color 0.3s ease, padding 0.2s ease;
+    padding: 0.5rem 1rem;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #fff;
+        background: linear-gradient(135deg, #343a40, #495057);
+        border-radius: 5px;
+    }
+
+/* Animasyonlu butonlar */
+.btn {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+
+/* Header Stili (Footer ile aynı renk) */
+header {
+    color: white;
+}
+
+/* Footer */
+footer {
+    color: #fff;
+}
+
+    footer p {
+        margin: 0;
+    }
+
+/* Kart hover efektleri */
+.card {
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+/* Navbar geçiş efekti */
+.navbar {
+    transition: background-color 0.5s ease;
+}
+
+    .navbar:hover {
+        background-color: #e9ecef;
+    }

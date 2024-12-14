@@ -5,50 +5,134 @@
 
 <section>
     <h1 class="text-center mb-4">Pediatri Nöbet Yönetim Sistemi</h1>
-    <p class="text-center">Bu sistem, pediatri bölümünde nöbetlerin planlanmasını, yönetilmesini ve randevu süreçlerinin kolaylaştırılmasını sağlar.</p>
+    <p class="text-center">Farkımız tarzımız.</p>
 
     <div class="row mt-5">
-        <!-- Hızlı Erişim Kartları -->
-        <div class="col-md-4 text-center">
+        <!-- Sol Tarafta Duyurular -->
+        <div class="col-md-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Asistanlar</h5>
-                    <p class="card-text">Tüm asistanların nöbet planlarını ve iletişim bilgilerini görüntüleyin.</p>
-                    <a href="/Asistan" class="btn btn-primary">Asistan Listesi</a>
+                    <h5 class="card-title">Duyurular</h5>
+                    <div class="custom-scroll">
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                📢 Yeni nöbet planı yayınlandı!
+                            </div>
+                        </div>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                📢 Klinik toplantısı 14:00'te.
+                            </div>
+                        </div>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                📢 Yeni raporlama sistemi aktif.
+                            </div>
+                        </div>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                📢 Nisan ayı randevularınızı planlayın!
+                            </div>
+                        </div>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                📢 Yeni asistan rehberi yayınlandı.
+                            </div>
+                        </div>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                📢 Hasta çalışma saatleri düzenlendi.
+                            </div>
+                        </div>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                📢 Tıbbi cihaz bakım tarihleri belirlenmiştir.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 text-center">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Hocalar</h5>
-                    <p class="card-text">Hocaların randevu saatlerini ve nöbet detaylarını inceleyin.</p>
-                    <a href="/Hoca" class="btn btn-secondary">Hoca Listesi</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 text-center">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Raporlama</h5>
-                    <p class="card-text">Geçmiş nöbet kayıtları ve raporlara erişim sağlayın.</p>
-                    <a href="/Raporlama" class="btn btn-success">Raporlama</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mt-5 text-center">
-        <h2>Öne Çıkan Özellikler</h2>
-        <ul class="list-unstyled">
-            <li>✅ Kullanıcı dostu arayüz</li>
-            <li>✅ Hızlı nöbet planlama</li>
-            <li>✅ Detaylı raporlama ve analiz</li>
-            <li>✅ Kolay iletişim yönetimi</li>
-        </ul>
-    </div>
 
-    <footer class="text-center mt-5">
-        <p class="small">&copy; 2024 Pediatri Nöbet Yönetim Sistemi. Tüm hakları saklıdır.</p>
-    </footer>
+        <!-- Ortada Haberler -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Haberler</h5>
+                    <div id="newsCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="/images/news/yeniasistanlar.jpg" class="d-block w-100" alt="Haber 1">
+                                <div class="carousel-caption d-none d-md-block">          
+                                </div>
+                                <h5 class="text-center">Yeni pediatri asistanları aramıza katıldı.</h5>
+                                <p class="text-center">Hastanemize yeni katılan asistanlarımızı karşılıyoruz.</p>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/images/news/istatistik.jpg" class="d-block w-100" alt="Haber 2">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                                <h5 class="text-center">Aylık nöbet istatistikleri yayımlandı.</h5>
+                                <p class="text-center">Geçen ayın istatistikleri ile nöbet planları güncellendi.</p>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/images/news/anket.jpg" class="d-block w-100" alt="Haber 3">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                                <h5 class="text-center">Hasta memnuniyet anketleri güncellendi.</h5>
+                                <p class="text-center">Yeni anket formatıyla daha etkili geri bildirim alıyoruz.</p>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ Tarafta Yeni İçerik -->
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">İstatistikler</h5>
+                    <ul class="list-unstyled">
+                        <li>👨‍⚕️ Toplam Asistan: 24</li>
+                        <li>🩺 Aylık Nöbet Sayısı: 120</li>
+                        <li>📊 Hasta Memnuniyeti: %92</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
+<style>
+    .custom-scroll {
+        max-height: 300px;
+        overflow-y: scroll; /* Scrollbar görünür olacak ama hareket etmeyecek */
+        scrollbar-width: thin; /* Firefox için ince scrollbar */
+        scrollbar-color: #d3d3d3 transparent; /* Thumb ve track rengi */
+        background-color: #f2f2f2; /* Soluk gri arka plan */
+    }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px; /* Scrollbar genişliği */
+            display: none; /* Scrollbar'ı gizler */
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Track rengi */
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background-color: transparent; /* Thumb rengi şeffaf */
+            border-radius: 20px; /* Yuvarlatılmış köşeler */
+        }
+
+</style>

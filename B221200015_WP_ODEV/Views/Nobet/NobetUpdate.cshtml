@@ -1,0 +1,67 @@
+﻿@model B221200015_WP_ODEV.Models.Nobet
+
+@{
+    ViewData["Title"] = "Nöbet Ekle";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+
+    <!-- Tüm hata mesajlarını toplu olarak gösterir -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary()
+        </div>
+    }
+
+    <form asp-controller="Nobet" asp-action="NobetUpdate" method="post">
+        <div class="form-group">
+            <label asp-for="Asistan"></label>
+            <select asp-for="AsistanId" class="form-control">
+                @foreach (var asistan in ViewBag.Asistanlar as List<B221200015_WP_ODEV.Models.Asistan>)
+                {
+                    <option value="@asistan.Id">@asistan.Ad @asistan.Soyad</option>
+                }
+            </select>
+            <span asp-validation-for="AsistanId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Bolum"></label>
+            <select asp-for="BolumId" class="form-control">
+                @foreach (var bolum in ViewBag.Bolumler as List<B221200015_WP_ODEV.Models.Bolum>)
+                {
+                    <option value="@bolum.Id">@bolum.BolumAdi</option>
+                }
+            </select>
+            <span asp-validation-for="BolumId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BaslamaTarihi">Başlama Tarihi</label>
+            <input asp-for="BaslamaTarihi" class="form-control" type="date" />
+            <span asp-validation-for="BaslamaTarihi" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BaslamaSaati">Başlama Saati</label>
+            <input asp-for="BaslamaSaati" class="form-control" type="time" />
+            <span asp-validation-for="BaslamaSaati" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BitisTarihi">Bitiş Tarihi</label>
+            <input asp-for="BitisTarihi" class="form-control" type="date" />
+            <span asp-validation-for="BitisTarihi" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BitisSaati">Bitiş Saati</label>
+            <input asp-for="BitisSaati" class="form-control" type="time" />
+            <span asp-validation-for="BitisSaati" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ekle</button>
+    </form>
+</div>

@@ -28,6 +28,10 @@
                     <td>@nobet.Bolum.BolumAdi</td>
                     <td>@nobet.BaslamaTarihi.ToShortDateString() @nobet.BaslamaSaati.ToString(@"hh\:mm")</td>
                     <td>@nobet.BitisTarihi.ToShortDateString() @nobet.BitisSaati.ToString(@"hh\:mm")</td>
+                    <td>
+                        <a asp-action="NobetUpdate" asp-route-id="@nobet.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a asp-action="NobetDelete" asp-route-id="@nobet.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
                 </tr>
             }
         </tbody>
