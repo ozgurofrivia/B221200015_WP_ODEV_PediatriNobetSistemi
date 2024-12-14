@@ -1,12 +1,20 @@
-﻿@{
+﻿@model B221200015_WP_ODEV.Models.Hoca
+
+@{
     ViewData["Title"] = "Yeni Hoca Ekle";
 }
 
-@model Hoca
-
 <div class="container mt-4">
     <h2 class="text-center">Yeni Hoca Ekle</h2>
-    <form asp-controller = "Hoca" asp-action="HocaAdd" method="post">
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary()
+        </div>
+    }
+
+    <form asp-controller="Hoca" asp-action="HocaAdd" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="Ad"></label>
             <input asp-for="Ad" class="form-control" />
@@ -30,12 +38,19 @@
         <div class="form-group">
             <label asp-for="BolumId"></label>
             <select asp-for="BolumId" class="form-control">
+                <option value="">Seçiniz</option>  <!-- Varsayılan "Seçiniz" opsiyonu eklenebilir -->
                 @foreach (var bolum in ViewBag.Bolumler as List<B221200015_WP_ODEV.Models.Bolum>)
                 {
                     <option value="@bolum.Id">@bolum.BolumAdi</option>
                 }
             </select>
             <span asp-validation-for="BolumId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Resim">Resim</label>
+            <input type="file" name="Resim" class="form-control" />
+            <span asp-validation-for="Resim" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Kaydet</button>
     </form>

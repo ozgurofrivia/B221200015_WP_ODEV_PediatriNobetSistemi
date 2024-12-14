@@ -10,29 +10,38 @@
     <a asp-action="HocaMusaitlikAdd" class="btn btn-success">Yeni Müsaitlik Ekle</a>
 </p>
 
-<table class="table table-bordered mt-3" id="musaitlikTablosu">
-    <thead>
-        <tr>
-            <th onclick="sortTable(0)">Hoca</th>
-            <th onclick="sortTable(1)">Tarih</th>
-            <th onclick="sortTable(2)">Saat</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="container mt-4">
+    <form asp-action="HocaMusaitlik" method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="searchTerm" class="form-control" placeholder="Hoca adı veya soyadı ara..." />
+            <button type="submit" class="btn btn-primary">Ara</button>
+        </div>
+    </form>
+
+    <table class="table table-bordered mt-3" id="musaitlikTablosu">
+        <thead>
             <tr>
-                <td>@item.Hoca.Ad @item.Hoca.Soyad</td>
-                <td>@item.Tarih.ToShortDateString()</td>
-                <td>@item.Saat</td>
-                <td>
-                    <a asp-action="HocaMusaitlikUpdate" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Düzenle</a>
-                    <a asp-action="HocaMusaitlikDelete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
-                </td>
+                <th onclick="sortTable(0)">Hoca</th>
+                <th onclick="sortTable(1)">Tarih</th>
+                <th onclick="sortTable(2)">Saat</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Hoca.Ad @item.Hoca.Soyad</td>
+                    <td>@item.Tarih.ToShortDateString()</td>
+                    <td>@item.Saat</td>
+                    <td>
+                        <a asp-action="HocaMusaitlikUpdate" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Düzenle</a>
+                        <a asp-action="HocaMusaitlikDelete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <script>
     function sortTable(columnIndex) {

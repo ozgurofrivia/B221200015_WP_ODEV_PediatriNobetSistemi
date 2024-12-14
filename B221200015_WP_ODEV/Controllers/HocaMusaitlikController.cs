@@ -34,12 +34,24 @@ namespace B221200015_WP_ODEV.Controllers
             return View(hocaMusaitlikler.ToList());
         }
 
-        public IActionResult HocaMusaitlikList()
+        public IActionResult HocaMusaitlikList(string searchTerm)
         {
-            var musaitlikler = _context.HocaMusaitlikler.Include(h => h.Hoca).ToList();
-            return View(musaitlikler);
+            var hocaMusaitlikler = _context.HocaMusaitlikler
+                .Include(hm => hm.Hoca)
+                .OrderBy(hm => hm.Hoca.Ad)// Hoca bilgilerini dahil etmek için
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                hocaMusaitlikler = hocaMusaitlikler.Where(hm =>
+                    hm.Hoca.Ad.Contains(searchTerm) ||
+                    hm.Hoca.Soyad.Contains(searchTerm) ||
+                    (hm.Hoca.Ad + " " + hm.Hoca.Soyad).Contains(searchTerm));
+            }
+
+            return View(hocaMusaitlikler.ToList());
         }
- 
+
         public IActionResult HocaMusaitlikAdd()
         {
             ViewBag.Hocalar = _context.Hocalar.ToList();

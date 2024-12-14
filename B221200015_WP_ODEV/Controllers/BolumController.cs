@@ -45,6 +45,14 @@ namespace B221200015_WP_ODEV.Controllers
         [HttpPost]
         public IActionResult BolumAdd(Bolum bolum)
         {
+            // Eğer ModelState geçerli değilse, formu tekrar gösteriyoruz
+            if (!ModelState.IsValid)
+            {
+                // Bölüm listesini ViewBag ile tekrar göndermek
+                ViewBag.Bolumler = _context.Bolumler.ToList();
+                return View(bolum);
+            }
+
             _context.Bolumler.Add(bolum);
             _context.SaveChanges();
             return RedirectToAction("BolumList");

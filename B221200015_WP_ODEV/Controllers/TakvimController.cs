@@ -36,13 +36,12 @@ namespace B221200015_WP_ODEV.Controllers
             // Nöbet bilgilerini FullCalendar'a uygun formata dönüştür
             var events = nobetler.Select(n => new
             {
-                title = $"{n.Asistan.Ad} - {n.Bolum.BolumAdi}", // Asistan ve Bölüm adını birleştir
+                title = $"{n.Asistan.Ad} {n.Asistan.Soyad} - {n.Bolum.BolumAdi}", // Asistan ve Bölüm adını birleştir
                 start = n.BaslamaTarihi.Add(n.BaslamaSaati), // Başlama tarih + saat
                 end = n.BitisTarihi.Add(n.BitisSaati) // Bitiş tarih + saat
             }).ToList();
 
             return Json(events); // JSON formatında döndür
         }
-
     }
 }

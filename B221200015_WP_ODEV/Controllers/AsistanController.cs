@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using B221200015_WP_ODEV.Data;
 using B221200015_WP_ODEV.Models;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Linq;
 
 namespace B221200015_WP_ODEV.Controllers
 {
@@ -16,39 +17,102 @@ namespace B221200015_WP_ODEV.Controllers
             _context = context;
         }
 
-        public IActionResult Asistan()
+        public IActionResult Asistan(string searchTerm, string sortOrder)
         {
-            var asistanlar = _context.Asistanlar.Include(h => h.Bolum).ToList();
-            return View(asistanlar);
+            // Asistan bilgilerini bölümleriyle birlikte sorgulama
+            var asistanlar = _context.Asistanlar
+                .Include(h => h.Bolum)
+                .AsQueryable();
+
+            // Eğer arama terimi sağlanmışsa, filtreleme uygula
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                asistanlar = asistanlar.Where(h =>
+                    h.Ad.Contains(searchTerm) ||
+                    h.Soyad.Contains(searchTerm) ||
+                    (h.Ad + " " + h.Soyad).Contains(searchTerm)
+                );
+            }
+
+            // Sıralama işlemi
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    asistanlar = asistanlar.OrderByDescending(h => h.Ad);
+                    break;
+                case "department":
+                    asistanlar = asistanlar.OrderBy(h => h.Bolum.BolumAdi);
+                    break;
+                case "department_desc":
+                    asistanlar = asistanlar.OrderByDescending(h => h.Bolum.BolumAdi);
+                    break;
+                default:
+                    asistanlar = asistanlar.OrderBy(h => h.Ad); // Varsayılan sıralama: ad'a göre
+                    break;
+            }
+
+            // Sonuçları listeye çevir ve görünümde göster
+            return View(asistanlar.ToList());
         }
 
         // Asistanların Listelenmesi
-        public IActionResult AsistanList()
+        public IActionResult AsistanList(string searchTerm)
         {
-            var asistanlar = _context.Asistanlar.Include(h => h.Bolum).ToList();
-            return View(asistanlar);
+            var asistanlar = _context.Asistanlar
+                .Include(h => h.Bolum)
+                .OrderBy(h => h.Bolum.BolumAdi)
+                .AsQueryable();
+
+            // Arama fonksiyonu
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                asistanlar = asistanlar.Where(h =>
+                    h.Ad.Contains(searchTerm) ||
+                    h.Soyad.Contains(searchTerm) ||
+                    (h.Ad + " " + h.Soyad).Contains(searchTerm)
+                );
+            }
+
+            return View(asistanlar.ToList());
         }
 
         // Yeni Asistan Ekleme - GET
         [HttpGet]
         public IActionResult AsistanAdd()
         {
+            // Bölüm listesini ViewBag ile gönderiyoruz
             ViewBag.Bolumler = _context.Bolumler.ToList();
             return View();
         }
 
         // Yeni Asistan Ekleme - POST
         [HttpPost]
-        public IActionResult AsistanAdd(Asistan asistan)
+        public IActionResult AsistanAdd(Asistan asistan, IFormFile Resim)
         {
-            // Yeni kayıt için ID sıfırlanır
-            asistan.Id = 0;
+            // Resim kaydetme işlemi
+            if (Resim != null)
+            {
+                var resimYolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "asistanlar", Resim.FileName);
+                using (var fileStream = new FileStream(resimYolu, FileMode.Create))
+                {
+                    Resim.CopyTo(fileStream);
+                }
 
-            // Kayıt eklenir
+                asistan.Resim = "/images/asistanlar/" + Resim.FileName;
+            }
+
+            // Eğer ModelState geçerli değilse, formu tekrar gösteriyoruz
+            if (!ModelState.IsValid)
+            {
+                // Bölüm listesini ViewBag ile tekrar göndermek
+                ViewBag.Bolumler = _context.Bolumler.ToList();
+                return View(asistan);
+            }
+
+            // Yeni asistanı ekliyoruz
             _context.Asistanlar.Add(asistan);
             _context.SaveChanges();
 
-            // Listeye yönlendirme yapılır
             return RedirectToAction("AsistanList");
         }
 
@@ -65,10 +129,24 @@ namespace B221200015_WP_ODEV.Controllers
 
         // Asistan Güncelleme - POST
         [HttpPost]
-        public IActionResult AsistanUpdate(Asistan asistan)
+        public IActionResult AsistanUpdate(Asistan asistan, IFormFile Resim)
         {
+            // Resim varsa, resmi kaydediyoruz
+            if (Resim != null)
+            {
+                var resimYolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "asistanlar", Resim.FileName);
+                using (var fileStream = new FileStream(resimYolu, FileMode.Create))
+                {
+                    Resim.CopyTo(fileStream);
+                }
+
+                asistan.Resim = "/images/asistanlar/" + Resim.FileName;
+            }
+
+            // Asistan bilgilerini güncelliyoruz
             _context.Asistanlar.Update(asistan);
             _context.SaveChanges();
+
             return RedirectToAction("AsistanList");
         }
 
@@ -86,24 +164,19 @@ namespace B221200015_WP_ODEV.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var asistan = _context.Asistanlar
-                .Include(h => h.Randevular) // Randevular tablosundaki ilişkili verileri dahil et
+                .Include(h => h.Randevular)
                 .FirstOrDefault(h => h.Id == id);
 
+            // Asistan varsa, randevuları ve asistanı siliyoruz
             if (asistan != null)
             {
-                // Önce ilişkili randevuları sil
                 _context.Randevular.RemoveRange(asistan.Randevular);
-
-                // Daha sonra Asistan kaydını sil
                 _context.Asistanlar.Remove(asistan);
                 _context.SaveChanges();
-
-                // Kimlik sıfırlama işlemi
                 _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Asistanlar', RESEED, 0)");
             }
 
             return RedirectToAction("AsistanList");
         }
-
     }
 }

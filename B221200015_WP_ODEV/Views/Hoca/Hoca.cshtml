@@ -1,35 +1,46 @@
-﻿@model List<B221200015_WP_ODEV.Models.Hoca>
-
-@{
-    ViewData["Title"] = "Hoca Yönetimi";
+﻿@{
+    ViewData["Title"] = "Hocalar";
+    Layout = "_Layout";
 }
 
-<h2 class="text-center">Bölümler Listesi</h2>
-<p class="text-center">Bu sayfada bölümlerin listesini görebilirsiniz.</p>
+@model List<B221200015_WP_ODEV.Models.Hoca>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Ad</th>
-            <th>Soyad</th>
-            <th>Telefon</th>
-            <th>E-posta</th>
-            <th>Bölüm</th>
-        </tr>
-    </thead>
-    <tbody>
+<h2 class="text-center">Hocalar Listesi</h2>
+<p class="text-center">Bu sayfada hocaların listesini görebilirsiniz.</p>
+
+<form asp-action="Hoca" method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Hoca adı veya soyadı ara..." />
+        <button type="submit" class="btn btn-primary">Ara</button>
+    </div>
+</form>
+
+<div class="d-flex justify-content-between mb-3">
+    <div>
+        <a class="btn btn-secondary" href="@Url.Action("Hoca", new { sortOrder = "name" })">İsme Göre A-Z</a>
+        <a class="btn btn-secondary" href="@Url.Action("Hoca", new { sortOrder = "name_desc" })">İsme Göre Z-A</a>
+        <a class="btn btn-secondary" href="@Url.Action("Hoca", new { sortOrder = "department" })">Bölüme Göre A-Z</a>
+        <a class="btn btn-secondary" href="@Url.Action("Hoca", new { sortOrder = "department_desc" })">Bölüme Göre Z-A</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
         @foreach (var hoca in Model)
         {
-            <tr>
-                <td>@hoca.Id</td>
-                <td>@hoca.Ad</td>
-                <td>@hoca.Soyad</td>
-                <td>@hoca.Telefon</td>
-                <td>@hoca.Mail</td>
-                <td>@(hoca.Bolum != null ? hoca.Bolum.BolumAdi : "Bölüm Yok")</td>
-            </tr>
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="@hoca.Resim" class="card-img-top" alt="Hoca Resmi" style="height: 500px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@hoca.Ad @hoca.Soyad</h5>
+                        <p class="card-text">
+                            <strong>Telefon:</strong> @hoca.Telefon <br />
+                            <strong>E-posta:</strong> @hoca.Mail <br />
+                            <strong>Bölüm:</strong> @(hoca.Bolum != null ? hoca.Bolum.BolumAdi : "Bölüm Yok")
+                        </p>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
 </div>

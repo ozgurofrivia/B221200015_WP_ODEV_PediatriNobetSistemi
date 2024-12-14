@@ -6,18 +6,24 @@
 
 <div class="container mt-4">
     <h2 class="text-center">Asistan Yönetimi</h2>
+    <form asp-action="HocaList" method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="searchTerm" class="form-control" placeholder="Hoca adı veya soyadı ara..." />
+            <button type="submit" class="btn btn-primary">Ara</button>
+        </div>
+    </form>
     <div class="text-right mb-3">
         <a asp-action="AsistanAdd" class="btn btn-success">Yeni Asistan Ekle</a>
     </div>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="asistanTablosu">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Ad</th>
-                <th>Soyad</th>
-                <th>Telefon</th>
-                <th>E-posta</th>
-                <th>Bölüm</th>
+                <th onclick="sortTable(0)">Id</th>
+                <th onclick="sortTable(1)">Ad</th>
+                <th onclick="sortTable(2)">Soyad</th>
+                <th onclick="sortTable(3)">Telefon</th>
+                <th onclick="sortTable(4)">E-posta</th>
+                <th onclick="sortTable(5)">Bölüm</th>
             </tr>
         </thead>
         <tbody>
@@ -39,3 +45,33 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function sortTable(columnIndex) {
+        var table = document.getElementById("asistanTablosu");
+        var rows = table.rows;
+        var switching = true;
+        var shouldSwitch;
+        var i;
+        var x, y;
+        var switchCount = 0;
+
+        while (switching) {
+            switching = false;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchCount++;
+            }
+        }
+    }
+</script>

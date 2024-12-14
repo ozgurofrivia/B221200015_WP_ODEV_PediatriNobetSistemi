@@ -6,6 +6,14 @@
 
 <div class="container mt-4">
     <h2 class="text-center">Yeni Bolum Ekle</h2>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary()
+        </div>
+    }
+
     <form asp-controller="Bolum" asp-action="BolumAdd" method="post">
         <div class="form-group">
             <label asp-for="BolumAdi">Bolum Adı</label>

@@ -78,7 +78,6 @@ namespace B221200015_WP_ODEV.Data
             base.OnModelCreating(modelBuilder);
         }
 
-
         public DbSet<Asistan> Asistanlar { get; set; }
         public DbSet<Hoca> Hocalar { get; set; }
         public DbSet<Bolum> Bolumler { get; set; }

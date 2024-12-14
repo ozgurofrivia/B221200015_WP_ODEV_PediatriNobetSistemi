@@ -90,3 +90,26 @@ a {
 .bg-light {
     background-color: #f4f8fb !important;
 }
+
+/* Takvim etkinlik metni taþma ve satýr geçiþi çözümü */
+.fc-daygrid-event .fc-event-title {
+    font-size: 12px; /* Yazý boyutunu küçült */
+    white-space: normal; /* Satýr geçiþine izin ver */
+    word-wrap: break-word; /* Uzun kelimeleri böl */
+    line-height: 1.2; /* Satýrlar arasýnda sýký bir boþluk */
+    text-align: left; /* Metni sola hizala */
+}
+
+/* Etkinlik kutucuk boyutunu optimize et */
+.fc-daygrid-event {
+    max-width: 100%; /* Kutucuðun sýnýrýný aþmasýn */
+    overflow: hidden; /* Taþan içeriði gizle */
+    text-overflow: ellipsis; /* Uzun metinler için sonuna '...' ekle */
+    padding: 2px; /* Kutucuk içi boþluðu azalt */
+}
+
+    /* Çok satýrlý metin hover (üstüne gelince görünüm) */
+    .fc-daygrid-event:hover {
+        overflow: visible; /* Hover sýrasýnda taþma görünür olsun */
+        z-index: 10; /* Hover sýrasýnda üst katmanda görünsün */
+    }

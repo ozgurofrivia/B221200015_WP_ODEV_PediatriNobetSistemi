@@ -32,7 +32,14 @@
         selectable: true, // Tarih seçilebilir
         nowIndicator: true,
         height: 'auto',
-        themeSystem: 'standard'
+        themeSystem: 'standard',
+
+        // Event başlıklarını düzenlemek için CSS ekle
+        eventDidMount: function (info) {
+            info.el.style.whiteSpace = 'normal'; // Satır geçişine izin ver
+            info.el.style.wordWrap = 'break-word'; // Uzun kelimeleri böl
+            info.el.style.lineHeight = '1.2'; // Satır yüksekliğini optimize et
+        }
     });
 
     calendar.render();

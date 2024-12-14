@@ -8,31 +8,39 @@
 <h2 class="text-center">Asistanlar Listesi</h2>
 <p class="text-center">Bu sayfada asistanların listesini görebilirsiniz.</p>
 
-<!-- Örnek veri tablosu -->
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Ad</th>
-            <th>Soyad</th>
-            <th>Telefon</th>
-            <th>E-posta</th>
-            <th>Bölüm</th>
-        </tr>
-    </thead>
-    <tbody>
+<form asp-action="Asistan" method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Asistan adı veya soyadı ara..." />
+        <button type="submit" class="btn btn-primary">Ara</button>
+    </div>
+</form>
+
+<div class="d-flex justify-content-between mb-3">
+    <div>
+        <a class="btn btn-secondary" href="@Url.Action("Asistan", new { sortOrder = "name" })">İsme Göre A-Z</a>
+        <a class="btn btn-secondary" href="@Url.Action("Asistan", new { sortOrder = "name_desc" })">İsme Göre Z-A</a>
+        <a class="btn btn-secondary" href="@Url.Action("Asistan", new { sortOrder = "department" })">Bölüme Göre A-Z</a>
+        <a class="btn btn-secondary" href="@Url.Action("Asistan", new { sortOrder = "department_desc" })">Bölüme Göre Z-A</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
         @foreach (var asistan in Model)
         {
-            <tr>
-                <td>@asistan.Id</td>
-                <td>@asistan.Ad</td>
-                <td>@asistan.Soyad</td>
-                <td>@asistan.Telefon</td>
-                <td>@asistan.Mail</td>
-                <td>@(asistan.Bolum != null ? asistan.Bolum.BolumAdi : "Bölüm Yok")</td>
-
-            </tr>
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="@asistan.Resim" class="card-img-top" alt="Asistan Resmi" style="height: 500px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@asistan.Ad @asistan.Soyad</h5>
+                        <p class="card-text">
+                            <strong>Telefon:</strong> @asistan.Telefon <br />
+                            <strong>E-posta:</strong> @asistan.Mail <br />
+                            <strong>Bölüm:</strong> @(asistan.Bolum != null ? asistan.Bolum.BolumAdi : "Bölüm Yok")
+                        </p>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
-
+    </div>
+</div>

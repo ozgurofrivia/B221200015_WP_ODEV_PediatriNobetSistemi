@@ -62,6 +62,9 @@ namespace B221200015_WP_ODEV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Resim")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Soyad")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -89,10 +92,10 @@ namespace B221200015_WP_ODEV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("BosYatakSayisi")
+                    b.Property<int?>("BosYatakSayisi")
                         .HasColumnType("int");
 
-                    b.Property<int>("HastaSayisi")
+                    b.Property<int?>("HastaSayisi")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -117,6 +120,9 @@ namespace B221200015_WP_ODEV.Migrations
 
                     b.Property<string>("Mail")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Resim")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Soyad")
