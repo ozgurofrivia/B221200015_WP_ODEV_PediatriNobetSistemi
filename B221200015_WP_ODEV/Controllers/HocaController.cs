@@ -174,8 +174,6 @@ namespace B221200015_WP_ODEV.Controllers
                 _context.Hocalar.Remove(hoca);
                 _context.SaveChanges();
 
-                // Kimlik sıfırlama işlemi
-                _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Hocalar', RESEED, 0)");
             }
 
             return RedirectToAction("HocaList");

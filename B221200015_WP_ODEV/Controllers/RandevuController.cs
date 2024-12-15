@@ -85,7 +85,6 @@ namespace B221200015_WP_ODEV.Controllers
             {
                 _context.Randevular.Remove(randevu);
                 _context.SaveChanges();
-                _context.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('Randevular', RESEED, 0)");
             }
             return RedirectToAction("RandevuList");
 

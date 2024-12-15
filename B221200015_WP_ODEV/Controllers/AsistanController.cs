@@ -173,7 +173,6 @@ namespace B221200015_WP_ODEV.Controllers
                 _context.Randevular.RemoveRange(asistan.Randevular);
                 _context.Asistanlar.Remove(asistan);
                 _context.SaveChanges();
-                _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Asistanlar', RESEED, 0)");
             }
 
             return RedirectToAction("AsistanList");
