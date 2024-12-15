@@ -80,7 +80,7 @@ namespace B221200015_WP_ODEV.Helper
                     foreach (var to in recipients.Where(email => !string.IsNullOrEmpty(email)))
                     {
                         var message = new MimeMessage();
-                        message.From.Add(new MailboxAddress("Pediatri Nöbet Sistemi", _smtpUsername));
+                        message.From.Add(new MailboxAddress("Pediatri Nöbet Yönetim Sistemi", _smtpUsername));
                         message.To.Add(new MailboxAddress("", to));
                         message.Subject = subject;
                         message.Body = new TextPart("plain")

@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="row mt-4">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card text-center">
                 <div class="card-header bg-warning text-white">
                     Randevu Yönetimi
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card text-center">
                 <div class="card-header bg-danger text-white">
                     Nöbet Yönetimi
@@ -62,6 +62,17 @@
                 <div class="card-body">
                     <p>Nöbet takvimini görüntüleme ve düzenleme.</p>
                     <a asp-controller="Nobet" asp-action="NobetList" class="btn btn-danger">Yönet</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-secondary text-white">
+                    Acil Durum Yönetimi
+                </div>
+                <div class="card-body">
+                    <p>Acil Durum görüntüleme ve düzenleme.</p>
+                    <a asp-controller="Acil" asp-action="AcilList" class="btn btn-secondary">Yönet</a>
                 </div>
             </div>
         </div>

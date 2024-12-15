@@ -6,8 +6,12 @@
 
 <form asp-action="Yayinla" method="post">
     <div class="mb-3">
+        <label for="konu" class="form-label">Konu:</label>
+        <input type="text" id="konu" name="konu" class="form-control" required />
+    </div>
+    <div class="mb-3">
         <label for="mesaj" class="form-label">Acil Durum Mesajı:</label>
-        <textarea id="mesaj" name="mesaj" class="form-control" rows="3"></textarea>
+        <textarea id="mesaj" name="mesaj" class="form-control" rows="3" required></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Yayınla</button>
 </form>

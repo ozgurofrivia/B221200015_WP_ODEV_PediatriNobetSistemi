@@ -1,0 +1,70 @@
+﻿@model IEnumerable<B221200015_WP_ODEV.Models.AcilDurum>
+
+@{
+    ViewData["Title"] = "Acil Durumlar";
+}
+
+<!-- CSS Tarz -->
+<style>
+    .card {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        border: none;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card-footer {
+        background-color: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .btn {
+        border-radius: 20px;
+    }
+
+    .btn-primary {
+        margin-bottom: 20px;
+    }
+</style>
+
+<!-- Sayfa Başlığı ve Acil Durum Gönder Butonu -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Acil Durumlar</h2>
+    <a asp-controller="Acil" asp-action="Acil" class="btn btn-primary">Acil Durum Gönder</a>
+</div>
+
+<!-- Kartlar -->
+<div class="row">
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="card-title">@item.Konu</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@item.Aciklama</p>
+                    </div>
+                    <div class="card-footer text-muted d-flex justify-content-between">
+                        <small>📅 @item.Tarih.ToString("dd.MM.yyyy") ⏰ @item.Saat</small>
+                        <div>
+                            <a asp-controller="Acil" asp-action="AcilUpdate" asp-route-id="@item.Id" class="btn btn-warning btn-sm me-2">Düzenle</a>
+                            <a asp-controller="Acil" asp-action="AcilDelete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-12">
+            <div class="alert alert-warning text-center">Hiçbir acil durum bulunamadı.</div>
+        </div>
+    }
+</div>

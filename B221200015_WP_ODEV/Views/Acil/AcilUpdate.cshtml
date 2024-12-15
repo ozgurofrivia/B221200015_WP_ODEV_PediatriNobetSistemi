@@ -1,0 +1,21 @@
+﻿@model B221200015_WP_ODEV.Models.AcilDurum
+
+@{
+    ViewData["Title"] = "Acil Durum Düzenle";
+}
+
+<h2>Acil Durum Düzenle</h2>
+
+<form asp-action="Duzenle" method="post">
+    <div class="mb-3">
+        <label for="Konu" class="form-label">Konu</label>
+        <input type="text" id="Konu" name="Konu" class="form-control" value="@Model.Konu" required />
+    </div>
+    <div class="mb-3">
+        <label for="Aciklama" class="form-label">Açıklama</label>
+        <textarea id="Aciklama" name="Aciklama" class="form-control" rows="3" required>@Model.Aciklama</textarea>
+    </div>
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="AcilDurumlarSayfa" class="btn btn-secondary">İptal</a>
+</form>

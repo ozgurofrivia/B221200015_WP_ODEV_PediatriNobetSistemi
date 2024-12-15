@@ -1,0 +1,36 @@
+﻿@model IEnumerable<B221200015_WP_ODEV.Models.AcilDurum>
+
+@{
+    ViewData["Title"] = "Acil Durumlar";
+    Layout = "_Layout";
+}
+
+<h2>Acil Durumlar</h2>
+
+<div class="row">
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="card-title">@item.Konu</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@item.Aciklama</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>📅 @item.Tarih.ToString("dd.MM.yyyy") ⏰ @item.Saat</small>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-12">
+            <div class="alert alert-warning text-center">Hiçbir acil durum bulunamadı.</div>
+        </div>
+    }
+</div>
