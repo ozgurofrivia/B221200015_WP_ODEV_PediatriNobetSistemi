@@ -24,16 +24,15 @@
                 <th onclick="sortTable(2)">Saat</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Hoca.Ad @item.Hoca.Soyad</td>
-                    <td>@item.Tarih.ToShortDateString()</td>
-                    <td>@item.Saat</td>
-                </tr>
-            }
-        </tbody>
+        @foreach (var item in Model)
+        {
+            var isUsed = Model.Any(m => m.Tarih == item.Tarih && m.Saat == item.Saat);
+            <tr style="color: @(isUsed ? "red" : "black");">
+                <td>@item.Hoca.Ad @item.Hoca.Soyad</td>
+                <td>@item.Tarih.ToShortDateString()</td>
+                <td>@item.Saat</td>
+            </tr>
+        }
     </table>
 </div>
 

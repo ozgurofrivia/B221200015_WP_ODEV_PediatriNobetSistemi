@@ -38,13 +38,47 @@ namespace B221200015_WP_ODEV.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult GetHocaMusaitlikler(int hocaId)
+        {
+            var musaitlikler = _context.HocaMusaitlikler
+                .Where(m => m.HocaId == hocaId && !_context.Randevular
+                    .Any(r => r.Tarih == m.Tarih && r.Saat == m.Saat))
+                .ToList();
+
+            return Json(musaitlikler);
+        }
+
         [HttpPost]
         public IActionResult RandevuAdd(Randevu randevu)
         {
+            // Müsaitlik kontrolü
+            var musaitlik = _context.HocaMusaitlikler
+                .FirstOrDefault(m => m.HocaId == randevu.HocaId
+                                  && m.Tarih == randevu.Tarih
+                                  && m.Saat == randevu.Saat);
+
+            if (musaitlik == null)
+            {
+                ModelState.AddModelError("", "Seçilen tarih ve saat artık müsait değil.");
+                ViewBag.Asistanlar = _context.Asistanlar.ToList();
+                ViewBag.Hocalar = _context.Hocalar.ToList();
+                return View(randevu);
+            }
+
+            //if (!ModelState.IsValid)
+            //{
+            //    // Bölüm listesini ViewBag ile tekrar göndermek
+            //    ViewBag.Asistanlar = _context.Asistanlar.ToList();
+            //    ViewBag.Hocalar = _context.Hocalar.ToList();
+            //    return View(randevu);
+            //}
+
             _context.Randevular.Add(randevu);
             _context.SaveChanges();
             return RedirectToAction("RandevuList");
         }
+
 
         [HttpGet]
         public IActionResult RandevuUpdate(int id)

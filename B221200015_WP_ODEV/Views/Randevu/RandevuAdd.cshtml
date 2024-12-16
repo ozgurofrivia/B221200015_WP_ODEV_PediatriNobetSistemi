@@ -1,43 +1,115 @@
-﻿@{
+﻿@model B221200015_WP_ODEV.Models.Randevu
+
+@{
     ViewData["Title"] = "Yeni Randevu Ekle";
     Layout = "_Layout";
 }
 
-@model B221200015_WP_ODEV.Models.Randevu
+<h2>Yeni Randevu Ekle</h2>
 
-<div class="container mt-4">
-    <h2 class="text-center">Yeni Randevu Ekle</h2>
-    <form asp-controller="Randevu" asp-action="RandevuAdd" method="post">
-        <div class="form-group">
-            <label asp-for="Asistan"></label>
-            <select asp-for="AsistanId" class="form-control">
-                @foreach (var asistan in ViewBag.Asistanlar as List<B221200015_WP_ODEV.Models.Asistan>)
-                {
-                    <option value="@asistan.Id">@asistan.Ad @asistan.Soyad</option>
-                }
-            </select>
-            <span asp-validation-for="AsistanId" class="text-danger"></span>
+@if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary()
         </div>
-        <div class="form-group">
-            <label asp-for="Hoca"></label>
-            <select asp-for="HocaId" class="form-control">
-                @foreach (var hoca in ViewBag.Hocalar as List<B221200015_WP_ODEV.Models.Hoca>)
-                {
-                    <option value="@hoca.Id">@hoca.Ad @hoca.Soyad</option>
-                }
-            </select>
-            <span asp-validation-for="HocaId" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Tarih">Randevu Tarihi</label>
-            <input asp-for="Tarih" class="form-control" type="date" />
-            <span asp-validation-for="Tarih" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Saat">Randevu Saati</label>
-            <input asp-for="Saat" class="form-control" type="time" />
-            <span asp-validation-for="Saat" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Kaydet</button>
-    </form>
-</div>
+    }
+
+<form asp-action="RandevuAdd" method="post">
+    <div class="form-group">
+        <label for="AsistanId">Asistan:</label>
+        <select id="AsistanId" name="AsistanId" class="form-control">
+            @foreach (var asistan in ViewBag.Asistanlar)
+            {
+                <option value="@asistan.Id">@asistan.Ad @asistan.Soyad</option>
+            }
+        </select>
+        <span asp-validation-for="Asistan" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="HocaId">Hoca:</label>
+        <select id="HocaId" name="HocaId" class="form-control" onchange="loadMusaitlikler()">
+            <option value="">Hoca seçin</option>
+            @foreach (var hoca in ViewBag.Hocalar)
+            {
+                <option value="@hoca.Id">@hoca.Ad @hoca.Soyad</option>
+            }
+        </select>
+        <span asp-validation-for="Hoca" class="text-danger"></span>
+    </div>
+
+    <div id="musaitliklerTarihContainer" class="form-group" style="display: none;">
+        <label for="MusaitlikTarihId">Tarih:</label>
+        <select id="MusaitlikTarihId" name="Tarih" class="form-control">
+            <option value="">Önce bir hoca seçin</option>
+        </select>
+        <span asp-validation-for="Tarih" class="text-danger"></span>
+    </div>
+
+    <div id="musaitliklerSaatContainer" class="form-group" style="display: none;">
+        <label for="MusaitlikSaatId">Saat:</label>
+        <select id="MusaitlikSaatId" name="Saat" class="form-control">
+            <option value="">Önce bir tarih seçin</option>
+        </select>
+        <span asp-validation-for="Saat" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Kaydet</button>
+</form>
+
+<script>
+    function loadMusaitlikler() {
+        const hocaId = document.getElementById("HocaId").value;
+        const tarihContainer = document.getElementById("musaitliklerTarihContainer");
+        const saatContainer = document.getElementById("musaitliklerSaatContainer");
+        const tarihSelect = document.getElementById("MusaitlikTarihId");
+        const saatSelect = document.getElementById("MusaitlikSaatId");
+
+        if (hocaId) {
+            fetch(`/Randevu/GetHocaMusaitlikler?hocaId=${hocaId}`)
+                .then(response => response.json())
+                .then(data => {
+                    tarihSelect.innerHTML = "<option value=''>Tarih seçin</option>";
+                    saatSelect.innerHTML = "<option value=''>Saat seçin</option>";
+
+                    if (data.length > 0) {
+                        tarihContainer.style.display = "block";
+                        saatContainer.style.display = "none";
+
+                        const uniqueDates = [...new Set(data.map(item => item.tarih))];
+
+                        uniqueDates.forEach(tarih => {
+                            const option = document.createElement("option");
+                            option.value = tarih;
+                            option.text = new Date(tarih).toLocaleDateString();
+                            tarihSelect.appendChild(option);
+                        });
+
+                        tarihSelect.addEventListener('change', () => {
+                            const selectedDate = tarihSelect.value;
+                            saatSelect.innerHTML = "<option value=''>Saat seçin</option>";
+                            if (selectedDate) {
+                                saatContainer.style.display = "block";
+                                const filteredHours = data.filter(item => item.tarih === selectedDate);
+                                filteredHours.forEach(item => {
+                                    const option = document.createElement("option");
+                                    option.value = item.saat;
+                                    option.text = item.saat;
+                                    saatSelect.appendChild(option);
+                                });
+                            } else {
+                                saatContainer.style.display = "none";
+                            }
+                        });
+                    } else {
+                        tarihContainer.style.display = "none";
+                        saatContainer.style.display = "none";
+                        alert("Bu hoca için müsaitlik bulunmamaktadır.");
+                    }
+                });
+        } else {
+            tarihContainer.style.display = "none";
+            saatContainer.style.display = "none";
+        }
+    }
+</script>
