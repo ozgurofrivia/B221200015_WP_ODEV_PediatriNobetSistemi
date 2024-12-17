@@ -3,6 +3,7 @@ using System.Linq;
 using B221200015_WP_ODEV.Data;
 using B221200015_WP_ODEV.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace B221200015_WP_ODEV.Controllers
@@ -23,6 +24,7 @@ namespace B221200015_WP_ODEV.Controllers
             return View(randevular);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult RandevuList()
         {
             var randevular = _context.Randevular.Include(a => a.Asistan).ToList();
@@ -31,6 +33,7 @@ namespace B221200015_WP_ODEV.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult RandevuAdd()
         {
             ViewBag.Asistanlar = _context.Asistanlar.ToList();
@@ -79,8 +82,8 @@ namespace B221200015_WP_ODEV.Controllers
             return RedirectToAction("RandevuList");
         }
 
-
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult RandevuUpdate(int id)
         {
             var randevu = _context.Randevular.Find(id);
@@ -102,6 +105,7 @@ namespace B221200015_WP_ODEV.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult RandevuDelete(int id)
         {
             var randevu = _context.Randevular.Include(a => a.Asistan).FirstOrDefault(a => a.Id == id);

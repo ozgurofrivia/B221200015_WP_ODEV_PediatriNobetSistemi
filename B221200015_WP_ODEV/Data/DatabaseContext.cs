@@ -75,6 +75,8 @@ namespace B221200015_WP_ODEV.Data
                 .HasForeignKey(n => n.BolumId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+
+
             base.OnModelCreating(modelBuilder);
         }
 

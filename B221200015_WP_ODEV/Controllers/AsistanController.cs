@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace B221200015_WP_ODEV.Controllers
 {
@@ -56,6 +57,7 @@ namespace B221200015_WP_ODEV.Controllers
         }
 
         // Asistanların Listelenmesi
+        [Authorize(Roles = "Admin")]
         public IActionResult AsistanList(string searchTerm)
         {
             var asistanlar = _context.Asistanlar
@@ -78,6 +80,7 @@ namespace B221200015_WP_ODEV.Controllers
 
         // Yeni Asistan Ekleme - GET
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult AsistanAdd()
         {
             // Bölüm listesini ViewBag ile gönderiyoruz
@@ -118,6 +121,7 @@ namespace B221200015_WP_ODEV.Controllers
 
         // Asistan Güncelleme - GET
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult AsistanUpdate(int id)
         {
             var asistan = _context.Asistanlar.Find(id);
@@ -152,6 +156,7 @@ namespace B221200015_WP_ODEV.Controllers
 
         // Asistan Silme - GET (Onay Sayfası)
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult AsistanDelete(int id)
         {
             var asistan = _context.Asistanlar.Include(h => h.Bolum).FirstOrDefault(h => h.Id == id);

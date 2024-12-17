@@ -3,6 +3,7 @@ using B221200015_WP_ODEV.Models;
 using System.Linq;
 using B221200015_WP_ODEV.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace B221200015_WP_ODEV.Controllers
 {
@@ -30,12 +31,14 @@ namespace B221200015_WP_ODEV.Controllers
             return View(bolumler);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult BolumList()
         {
             var bolumler = _context.Bolumler.ToList();
             return View(bolumler);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult BolumAdd(int id)
         {
@@ -59,6 +62,7 @@ namespace B221200015_WP_ODEV.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult BolumUpdate(int id)
         {
             var bolum = _context.Bolumler.Find(id);
@@ -76,7 +80,7 @@ namespace B221200015_WP_ODEV.Controllers
         }
 
         [HttpGet]
-        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult BolumDelete(int id)
         {
             var bolum = _context.Bolumler

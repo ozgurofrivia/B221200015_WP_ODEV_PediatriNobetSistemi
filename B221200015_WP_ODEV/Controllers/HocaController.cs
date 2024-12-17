@@ -1,5 +1,6 @@
 ﻿using B221200015_WP_ODEV.Data;
 using B221200015_WP_ODEV.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,9 +53,8 @@ namespace B221200015_WP_ODEV.Controllers
             return View(hocalar.ToList());
         }
 
-
-
         // Hocaların Listelenmesi
+        [Authorize(Roles = "Admin")]
         public IActionResult HocaList(string searchTerm)
         {
             var hocalar = _context.Hocalar
@@ -78,6 +78,7 @@ namespace B221200015_WP_ODEV.Controllers
 
         // Yeni Hoca Ekleme - GET
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult HocaAdd()
         {
             // Bölüm listesini ViewBag ile gönderiyoruz
@@ -116,6 +117,7 @@ namespace B221200015_WP_ODEV.Controllers
 
         // Hoca Güncelleme - GET
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult HocaUpdate(int id)
         {
             var hoca = _context.Hocalar.Find(id);
@@ -150,6 +152,7 @@ namespace B221200015_WP_ODEV.Controllers
 
         // Hoca Silme - GET (Onay Sayfası)
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult HocaDelete(int id)
         {
             var hoca = _context.Hocalar.Include(h => h.Bolum).FirstOrDefault(h => h.Id == id);

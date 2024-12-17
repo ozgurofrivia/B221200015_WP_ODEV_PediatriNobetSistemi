@@ -4,6 +4,7 @@ using B221200015_WP_ODEV.Models;
 using B221200015_WP_ODEV.Data;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace B221200015_WP_ODEV.Controllers
 {
@@ -34,6 +35,7 @@ namespace B221200015_WP_ODEV.Controllers
             return View(hocaMusaitlikler.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult HocaMusaitlikList(string searchTerm)
         {
             var hocaMusaitlikler = _context.HocaMusaitlikler
@@ -52,6 +54,8 @@ namespace B221200015_WP_ODEV.Controllers
             return View(hocaMusaitlikler.ToList());
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult HocaMusaitlikAdd()
         {
             ViewBag.Hocalar = _context.Hocalar.ToList();
@@ -69,6 +73,8 @@ namespace B221200015_WP_ODEV.Controllers
             return RedirectToAction("HocaMusaitlikList");
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult HocaMusaitlikUpdate(int id)
         {
             var musaitlik = _context.HocaMusaitlikler.Find(id);
@@ -89,6 +95,8 @@ namespace B221200015_WP_ODEV.Controllers
             return RedirectToAction("HocaMusaitlikList");
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult HocaMusaitlikDelete(int id)
         {
             var musaitlik = _context.HocaMusaitlikler.Include(h => h.Hoca).FirstOrDefault(m => m.Id == id);

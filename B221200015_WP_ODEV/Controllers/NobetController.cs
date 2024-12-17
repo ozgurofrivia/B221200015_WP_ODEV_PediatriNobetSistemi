@@ -3,6 +3,7 @@ using B221200015_WP_ODEV.Models;
 using B221200015_WP_ODEV.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace B221200015_WP_ODEV.Controllers
@@ -16,6 +17,7 @@ namespace B221200015_WP_ODEV.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult NobetList()
         {
             var nobetler = _context.Nobetler.Include(n => n.Asistan).Include(n => n.Bolum).ToList();
@@ -23,6 +25,7 @@ namespace B221200015_WP_ODEV.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult NobetAdd()
         {
             ViewBag.Asistanlar = _context.Asistanlar.ToList();
@@ -66,6 +69,7 @@ namespace B221200015_WP_ODEV.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult NobetUpdate(int id) 
         {
             var nobet = _context.Nobetler.Find(id);
@@ -113,6 +117,7 @@ namespace B221200015_WP_ODEV.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult NobetDelete(int id)
         {
             var nobet = _context.Nobetler.Find(id);
