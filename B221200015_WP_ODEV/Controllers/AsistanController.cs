@@ -17,7 +17,6 @@ namespace B221200015_WP_ODEV.Controllers
         {
             _context = context;
         }
-
         public IActionResult Asistan(string searchTerm, string sortOrder)
         {
             // Asistan bilgilerini bölümleriyle birlikte sorgulama
@@ -78,17 +77,15 @@ namespace B221200015_WP_ODEV.Controllers
             return View(asistanlar.ToList());
         }
 
-        // Yeni Asistan Ekleme - GET
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult AsistanAdd()
         {
-            // Bölüm listesini ViewBag ile gönderiyoruz
+            // bölüm listesini viewbbag ile gönderiyoruz
             ViewBag.Bolumler = _context.Bolumler.ToList();
             return View();
         }
 
-        // Yeni Asistan Ekleme - POST
         [HttpPost]
         public IActionResult AsistanAdd(Asistan asistan, IFormFile Resim)
         {
@@ -104,22 +101,19 @@ namespace B221200015_WP_ODEV.Controllers
                 asistan.Resim = "/images/asistanlar/" + Resim.FileName;
             }
 
-            // Eğer ModelState geçerli değilse, formu tekrar gösteriyoruz
+            // doldurulması gereken alan boşsa formu tekrar gönder
             if (!ModelState.IsValid)
             {
-                // Bölüm listesini ViewBag ile tekrar göndermek
                 ViewBag.Bolumler = _context.Bolumler.ToList();
                 return View(asistan);
             }
 
-            // Yeni asistanı ekliyoruz
             _context.Asistanlar.Add(asistan);
             _context.SaveChanges();
 
             return RedirectToAction("AsistanList");
         }
 
-        // Asistan Güncelleme - GET
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult AsistanUpdate(int id)
@@ -131,11 +125,9 @@ namespace B221200015_WP_ODEV.Controllers
             return View(asistan);
         }
 
-        // Asistan Güncelleme - POST
         [HttpPost]
         public IActionResult AsistanUpdate(Asistan asistan, IFormFile Resim)
         {
-            // Resim varsa, resmi kaydediyoruz
             if (Resim != null)
             {
                 var resimYolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "asistanlar", Resim.FileName);
@@ -147,14 +139,12 @@ namespace B221200015_WP_ODEV.Controllers
                 asistan.Resim = "/images/asistanlar/" + Resim.FileName;
             }
 
-            // Asistan bilgilerini güncelliyoruz
             _context.Asistanlar.Update(asistan);
             _context.SaveChanges();
 
             return RedirectToAction("AsistanList");
         }
 
-        // Asistan Silme - GET (Onay Sayfası)
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult AsistanDelete(int id)
@@ -164,7 +154,6 @@ namespace B221200015_WP_ODEV.Controllers
             return View(asistan);
         }
 
-        // Asistan Silme - POST
         [HttpPost, ActionName("AsistanDelete")]
         public IActionResult DeleteConfirmed(int id)
         {
@@ -172,14 +161,13 @@ namespace B221200015_WP_ODEV.Controllers
                 .Include(h => h.Randevular)
                 .FirstOrDefault(h => h.Id == id);
 
-            // Asistan varsa, randevuları ve asistanı siliyoruz
+            //asistana kayıtlı randevular varsa sil
             if (asistan != null)
             {
                 _context.Randevular.RemoveRange(asistan.Randevular);
                 _context.Asistanlar.Remove(asistan);
                 _context.SaveChanges();
             }
-
             return RedirectToAction("AsistanList");
         }
     }

@@ -55,7 +55,7 @@ namespace B221200015_WP_ODEV.Controllers
         [HttpPost]
         public IActionResult RandevuAdd(Randevu randevu)
         {
-            // Müsaitlik kontrolü
+            // müsaitlik kontrolü
             var musaitlik = _context.HocaMusaitlikler
                 .FirstOrDefault(m => m.HocaId == randevu.HocaId
                                   && m.Tarih == randevu.Tarih
@@ -114,7 +114,6 @@ namespace B221200015_WP_ODEV.Controllers
             return View(randevu);
         }
 
-        // Hoca Silme - POST
         [HttpPost, ActionName("RandevuDelete")]
         public IActionResult DeleteConfirmed(int id)
         {
@@ -125,7 +124,6 @@ namespace B221200015_WP_ODEV.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("RandevuList");
-
         }
     }
 }

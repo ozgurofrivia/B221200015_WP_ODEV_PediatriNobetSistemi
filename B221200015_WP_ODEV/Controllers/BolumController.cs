@@ -48,10 +48,8 @@ namespace B221200015_WP_ODEV.Controllers
         [HttpPost]
         public IActionResult BolumAdd(Bolum bolum)
         {
-            // Eğer ModelState geçerli değilse, formu tekrar gösteriyoruz
             if (!ModelState.IsValid)
             {
-                // Bölüm listesini ViewBag ile tekrar göndermek
                 ViewBag.Bolumler = _context.Bolumler.ToList();
                 return View(bolum);
             }
@@ -84,9 +82,9 @@ namespace B221200015_WP_ODEV.Controllers
         public IActionResult BolumDelete(int id)
         {
             var bolum = _context.Bolumler
-                .Include(b => b.Nobetler) // Nöbetler dahil
-                .Include(b => b.Asistanlar) // Asistanlar dahil
-                .Include(b => b.Hocalar) // Hocalar dahil
+                .Include(b => b.Nobetler) 
+                .Include(b => b.Asistanlar)
+                .Include(b => b.Hocalar) 
                 .FirstOrDefault(b => b.Id == id);
 
             if (bolum == null) return NotFound();
@@ -103,17 +101,14 @@ namespace B221200015_WP_ODEV.Controllers
 
             if (bolum != null)
             {
-                // Nöbetleri sil
                 if (bolum.Nobetler != null)
                 {
                     _context.Nobetler.RemoveRange(bolum.Nobetler);
                 }
 
-                // Bölüm kaydını sil
                 _context.Bolumler.Remove(bolum);
                 _context.SaveChanges();
             }
-
             return RedirectToAction("BolumList");
         }
 

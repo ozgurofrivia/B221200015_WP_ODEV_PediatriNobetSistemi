@@ -6,18 +6,26 @@ public class Hasta
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; } // Primary Key
+    public int Id { get; set; }
+
     [Required]
     public string Ad { get; set; }
+
     [Required]
     public string Soyad { get; set; }
+
     public int Yas { get; set; }
+
     public string Durum { get; set; }
-    public int BolumId { get; set; } // Foreign Key
+
+    public int BolumId { get; set; }
+
     public string YatisDurumu { get; set; }
-    public DateTime YatisTarihi { get; set; } // Tarih için DateTime kullanılması daha doğru
-    public DateTime? CikisTarihi { get; set; } // Nullable DateTime, hasta taburcu olmamışsa boş olabilir
+
+    public DateTime YatisTarihi { get; set; } 
+
+    public DateTime? CikisTarihi { get; set; } 
 
     [ForeignKey("BolumId")]
-    public Bolum Bolum { get; set; } // Navigation property
+    public Bolum Bolum { get; set; }
 }

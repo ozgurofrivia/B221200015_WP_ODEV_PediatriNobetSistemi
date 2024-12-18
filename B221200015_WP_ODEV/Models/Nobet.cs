@@ -7,23 +7,30 @@ namespace B221200015_WP_ODEV.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } // Primary Key
+        public int Id { get; set; }
+
         [ForeignKey("AsistanId")]
         [Required(ErrorMessage = "Asistan alanı boş bırakılamaz.")]
-        public int AsistanId { get; set; } // Foreign Key
-        public Asistan Asistan { get; set; } // Navigation property
+        public int AsistanId { get; set; } 
+
+        public Asistan Asistan { get; set; } 
+
         [ForeignKey("BolumId")]
         [Required(ErrorMessage = "Bölüm alanı boş bırakılamaz.")]
-        public int BolumId { get; set; } // Foreign Key
-        public Bolum Bolum { get; set; } // Navigation property
-        [Required(ErrorMessage = "Saat alanı boş bırakılamaz.")]
-        public TimeSpan BaslamaSaati { get; set; } // Saat için TimeSpan kullanılması daha doğru
-        [Required(ErrorMessage = "Saat alanı boş bırakılamaz.")]
-        public TimeSpan BitisSaati { get; set; } // DateTime, saat bilgisi için DateTime kullanılmalı
-        [Required(ErrorMessage = "Tarih alanı boş bırakılamaz.")]
-        public DateTime BaslamaTarihi { get; set; } // DateTime, tarih için DateTime kullanılması daha doğru
-        [Required(ErrorMessage = "Tarih alanı boş bırakılamaz.")]
-        public DateTime BitisTarihi { get; set; } // DateTime, tarih için DateTime kullanılması daha doğru
+        public int BolumId { get; set; }
 
+        public Bolum Bolum { get; set; }
+
+        [Required(ErrorMessage = "Saat alanı boş bırakılamaz.")]
+        public TimeSpan BaslamaSaati { get; set; }
+
+        [Required(ErrorMessage = "Saat alanı boş bırakılamaz.")]
+        public TimeSpan BitisSaati { get; set; }
+
+        [Required(ErrorMessage = "Tarih alanı boş bırakılamaz.")]
+        public DateTime BaslamaTarihi { get; set; }
+
+        [Required(ErrorMessage = "Tarih alanı boş bırakılamaz.")]
+        public DateTime BitisTarihi { get; set; }
     }
 }

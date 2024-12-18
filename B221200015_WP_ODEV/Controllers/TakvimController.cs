@@ -17,7 +17,6 @@ namespace B221200015_WP_ODEV.Controllers
             _context = context;
         }
 
-        // GET: /Takvim
         public IActionResult Takvim()
         {
             return View();

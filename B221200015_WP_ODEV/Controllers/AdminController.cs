@@ -16,12 +16,9 @@ namespace B221200015_WP_ODEV.Controllers
             _context = context;
         }
 
-        // Admin Paneli Ana Sayfası
         public IActionResult Admin()
         {
             return View();
-        }
-
-        
+        }    
     }
 }

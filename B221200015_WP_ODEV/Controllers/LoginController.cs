@@ -8,10 +8,10 @@ namespace B221200015_WP_ODEV.Controllers
 {
     public class LoginController : Controller
     {
-        [HttpGet] // GET istekleri için tanımlanmış olmalı
+        [HttpGet] 
         public IActionResult Login()
         {
-            return View(); // Views/Login/Login.cshtml dosyasını render eder
+            return View();
         }
 
         [HttpPost]
@@ -22,7 +22,6 @@ namespace B221200015_WP_ODEV.Controllers
                 Debug.WriteLine($"Kullanıcı Adı: {username}");
                 Debug.WriteLine($"Şifre: {password}");
 
-                // Örnek kullanıcı doğrulama (veritabanı yerine sabit kontrol)
                 if (username == "admin" && password == "12345")
                 {
                     var claims = new List<Claim>
@@ -44,12 +43,10 @@ namespace B221200015_WP_ODEV.Controllers
             }
             catch (Exception ex)
             {
-                // Hata mesajını loglayın veya debug için konsola yazdırın
                 Debug.WriteLine($"Hata: {ex.Message}");
                 return View();
             }
         }
-
 
         public IActionResult Logout()
         {

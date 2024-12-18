@@ -44,7 +44,7 @@ namespace B221200015_WP_ODEV.Controllers
                 return View("Acil");
             }
 
-            // Acil durumu veritabanına kaydet
+            //veritabanına kaydet
             var acilDurum = new AcilDurum
             {
                 Konu = konu,
@@ -56,14 +56,14 @@ namespace B221200015_WP_ODEV.Controllers
             _context.AcilDurumlar.Add(acilDurum);
             _context.SaveChanges();
 
-            // E-posta adreslerini al
+            // mail adreslerini al
             var emailList = _context.Hocalar
                 .Select(h => h.Mail)
                 .Concat(_context.Asistanlar.Select(a => a.Mail))
                 .Where(email => !string.IsNullOrEmpty(email))
                 .ToList();
 
-            // Mail gönderimi
+            // gönderim
             foreach (var email in emailList)
             {
                 _mailHelper.Gonder(email, "Acil Durum: " + konu, mesaj);
@@ -75,7 +75,7 @@ namespace B221200015_WP_ODEV.Controllers
 
         public IActionResult AcilUpdate(int id)
         {
-            // İlgili acil durum kaydını getir
+            // acil durum kaydını getir
             var acilDurum = _context.AcilDurumlar.FirstOrDefault(a => a.Id == id);
             if (acilDurum == null)
             {
@@ -84,7 +84,7 @@ namespace B221200015_WP_ODEV.Controllers
             return View(acilDurum);
         }
 
-        // Düzenleme işlemini kaydet
+        // düzenleme
         [HttpPost]
         public IActionResult AcilUpdate(AcilDurum model)
         {
@@ -93,14 +93,14 @@ namespace B221200015_WP_ODEV.Controllers
                 return View(model);
             }
 
-            // Veritabanında ilgili kaydı bul
+            // kaydı bul
             var acilDurum = _context.AcilDurumlar.FirstOrDefault(a => a.Id == model.Id);
             if (acilDurum == null)
             {
                 return NotFound();
             }
 
-            // Değişiklikleri güncelle
+            // güncelle
             acilDurum.Konu = model.Konu;
             acilDurum.Aciklama = model.Aciklama;
             _context.SaveChanges();
@@ -110,7 +110,6 @@ namespace B221200015_WP_ODEV.Controllers
 
         public IActionResult AcilDelete(int id)
         {
-            // İlgili acil durum kaydını getir
             var acilDurum = _context.AcilDurumlar.FirstOrDefault(a => a.Id == id);
             if (acilDurum == null)
             {
@@ -119,18 +118,15 @@ namespace B221200015_WP_ODEV.Controllers
             return View(acilDurum);
         }
 
-        // Silme işlemini gerçekleştir
         [HttpPost, ActionName("AcilDelete")]
         public IActionResult DeleteConfirmed(int id)
-        {
-            // Veritabanında ilgili kaydı bul
+        {           
             var acilDurum = _context.AcilDurumlar.FirstOrDefault(a => a.Id == id);
             if (acilDurum == null)
             {
                 return NotFound();
             }
 
-            // Kaydı sil
             _context.AcilDurumlar.Remove(acilDurum);
             _context.SaveChanges();
             _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Asistanlar', RESEED, 0)");

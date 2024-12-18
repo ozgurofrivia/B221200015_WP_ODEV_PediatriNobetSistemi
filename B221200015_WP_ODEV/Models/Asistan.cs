@@ -8,24 +8,30 @@ namespace B221200015_WP_ODEV.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } // Primary Key
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Ad alanı boş bırakılamaz.")]
         public string Ad { get; set; }
+
         [Required(ErrorMessage = "Soyad alanı boş bırakılamaz.")]
         public string Soyad { get; set; }
+
         [Required(ErrorMessage = "Telefon alanı boş bırakılamaz.")]
         public string Telefon { get; set; }
+
         [EmailAddress]
         [Required(ErrorMessage = "Email alanı boş bırakılamaz.")]
         public string Mail { get; set; }
+
         [ForeignKey("BolumId")]
-        public int? BolumId { get; set; } // Foreign Key - Nullable olmalı
+        public int? BolumId { get; set; }
+
         public Bolum? Bolum { get; set; }
 
-        public ICollection<Nobet>? Nobetler { get; set; } // Navigation property for relationship with Nobet
-        public ICollection<Randevu>? Randevular { get; set; } // Navigation property for relationship with Randevu
+        public ICollection<Nobet>? Nobetler { get; set; }
 
-        // Yeni özellik: Resim yolu
+        public ICollection<Randevu>? Randevular { get; set; }
+
         public string? Resim { get; set; }
     }
 }

@@ -16,13 +16,11 @@ namespace B221200015_WP_ODEV.Controllers
         }
 
         public IActionResult Hoca(string searchTerm, string sortOrder)
-        {
-            // Hoca bilgilerini bölümleriyle birlikte sorgulama
+        { 
             var hocalar = _context.Hocalar
                 .Include(h => h.Bolum)
                 .AsQueryable();
 
-            // Eğer arama terimi sağlanmışsa, filtreleme uygula
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 hocalar = hocalar.Where(h =>
@@ -32,7 +30,6 @@ namespace B221200015_WP_ODEV.Controllers
                 );
             }
 
-            // Sıralama işlemi
             switch (sortOrder)
             {
                 case "name_desc":
@@ -49,11 +46,9 @@ namespace B221200015_WP_ODEV.Controllers
                     break;
             }
 
-            // Sonuçları listeye çevir ve görünümde göster
             return View(hocalar.ToList());
         }
 
-        // Hocaların Listelenmesi
         [Authorize(Roles = "Admin")]
         public IActionResult HocaList(string searchTerm)
         {
@@ -62,7 +57,6 @@ namespace B221200015_WP_ODEV.Controllers
                 .OrderBy(h => h.Bolum.BolumAdi)  
                 .AsQueryable();       
 
-            // Eğer arama terimi sağlanmışsa, filtreleme uygula
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 hocalar = hocalar.Where(h =>
@@ -72,25 +66,20 @@ namespace B221200015_WP_ODEV.Controllers
                 );
             }
 
-            // Sonuçları listeye çevir ve görünümde göster
             return View(hocalar.ToList());
         }
 
-        // Yeni Hoca Ekleme - GET
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult HocaAdd()
         {
-            // Bölüm listesini ViewBag ile gönderiyoruz
             ViewBag.Bolumler = _context.Bolumler.ToList();
             return View();
         }
 
-        // Yeni Hoca Ekleme - POST
         [HttpPost]
         public IActionResult HocaAdd(Hoca hoca, IFormFile Resim)
         {
-            // Resim varsa, resmi kaydediyoruz
             if (Resim != null)
             {
                 var resimYolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "hocalar", Resim.FileName);
@@ -101,21 +90,19 @@ namespace B221200015_WP_ODEV.Controllers
 
                 hoca.Resim = "/images/hocalar/" + Resim.FileName;
             }
-            // Eğer ModelState geçerli değilse, formu tekrar gösteriyoruz
+
             if (!ModelState.IsValid)
             {
-                // Bölüm listesini ViewBag ile tekrar göndermek
                 ViewBag.Bolumler = _context.Bolumler.ToList();
                 return View(hoca);
             }
-            // Yeni hocaı ekliyoruz
+
             _context.Hocalar.Add(hoca);
             _context.SaveChanges();
 
             return RedirectToAction("HocaList");
         }
 
-        // Hoca Güncelleme - GET
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult HocaUpdate(int id)
@@ -127,11 +114,9 @@ namespace B221200015_WP_ODEV.Controllers
             return View(hoca);
         }
 
-        // Hoca Güncelleme - POST
         [HttpPost]
         public IActionResult HocaUpdate(Hoca hoca, IFormFile Resim)
         {
-            // Resim varsa, resmi kaydediyoruz
             if (Resim != null)
             {
                 var resimYolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "hocalar", Resim.FileName);
@@ -143,14 +128,12 @@ namespace B221200015_WP_ODEV.Controllers
                 hoca.Resim = "/images/hocalar/" + Resim.FileName;
             }
 
-            // Hoca bilgilerini güncelliyoruz
             _context.Hocalar.Update(hoca);
             _context.SaveChanges();
 
             return RedirectToAction("HocaList");
         }
 
-        // Hoca Silme - GET (Onay Sayfası)
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult HocaDelete(int id)
@@ -160,29 +143,21 @@ namespace B221200015_WP_ODEV.Controllers
             return View(hoca);
         }
 
-        // Hoca Silme - POST
         [HttpPost, ActionName("HocaDelete")]
         public IActionResult DeleteConfirmed(int id)
         {
             var hoca = _context.Hocalar
-                .Include(h => h.Randevular) // Randevular tablosundaki ilişkili verileri dahil et
+                .Include(h => h.Randevular)
                 .FirstOrDefault(h => h.Id == id);
 
             if (hoca != null)
             {
-                // Önce ilişkili randevuları sil
                 _context.Randevular.RemoveRange(hoca.Randevular);
-
-                // Daha sonra Hoca kaydını sil
                 _context.Hocalar.Remove(hoca);
                 _context.SaveChanges();
-
             }
 
             return RedirectToAction("HocaList");
         }
-
-
-
     }
 }

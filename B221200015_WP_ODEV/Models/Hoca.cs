@@ -7,7 +7,7 @@ namespace B221200015_WP_ODEV.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } // Primary Key
+        public int Id { get; set; } 
 
         [Required(ErrorMessage = "Ad alanı boş bırakılamaz.")]
         public string Ad { get; set; }
@@ -23,9 +23,9 @@ namespace B221200015_WP_ODEV.Models
         public string Mail { get; set; }
 
         [ForeignKey("BolumId")]
-        public int? BolumId { get; set; } // Foreign Key
+        public int? BolumId { get; set; } 
         
-        public Bolum? Bolum { get; set; } // Navigation property
+        public Bolum? Bolum { get; set; } 
 
         public ICollection<Randevu>? Randevular { get; set; } = new List<Randevu>();
 

@@ -7,17 +7,16 @@ namespace B221200015_WP_ODEV.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } // Primary Key
+        public int Id { get; set; } 
 
         [Required(ErrorMessage = "Hoca Adı alanı boş bırakılamaz.")]
-        public int HocaId { get; set; } // Foreign Key      
-        public Hoca Hoca { get; set; } // Navigation property
+        public int HocaId { get; set; } 
+        public Hoca Hoca { get; set; } 
 
         [Required(ErrorMessage = "Tarih alanı boş bırakılamaz.")]
-        public DateTime Tarih { get; set; } // DateTime, tarih için DateTime kullanılması daha doğru
+        public DateTime Tarih { get; set; } 
 
         [Required(ErrorMessage = "Saat alanı boş bırakılamaz.")]
-        public TimeSpan Saat { get; set; } // Saat için TimeSpan kullanılması daha doğru
-
+        public TimeSpan Saat { get; set; } 
     }
 }

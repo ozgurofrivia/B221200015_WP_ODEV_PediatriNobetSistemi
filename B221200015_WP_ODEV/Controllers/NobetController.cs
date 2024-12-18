@@ -41,7 +41,6 @@ namespace B221200015_WP_ODEV.Controllers
                 throw new Exception("Nobet nesnesi null.");
             }
 
-            // Çakışma kontrolü
             var mevcutNobet = _context.Nobetler
                 .Where(n => n.AsistanId == nobet.AsistanId)
                 .Where(n =>
@@ -89,7 +88,6 @@ namespace B221200015_WP_ODEV.Controllers
                 throw new Exception("Nobet nesnesi null.");
             }
 
-            // Çakışma kontrolü
             var mevcutNobet = _context.Nobetler
                 .Where(n => n.AsistanId == nobet.AsistanId)
                 .Where(n =>
@@ -99,18 +97,14 @@ namespace B221200015_WP_ODEV.Controllers
 
             if (mevcutNobet != null)
             {
-                // Hata mesajını ModelState'e ekleyin
                 ModelState.AddModelError("", "Bu asistan belirtilen tarihler arasında zaten başka bir nöbete atanmış.");
 
-                // ViewBag ile gerekli listeleri tekrar ekleyin
                 ViewBag.Asistanlar = _context.Asistanlar.ToList();
                 ViewBag.Bolumler = _context.Bolumler.ToList();
 
-                // Kullanıcıya mevcut model ile tekrar aynı sayfayı döndürün
                 return View(nobet);
             }
 
-            // Nöbeti ekle
             _context.Nobetler.Update(nobet);
             _context.SaveChanges();
             return RedirectToAction(nameof(NobetList));
@@ -129,7 +123,6 @@ namespace B221200015_WP_ODEV.Controllers
             return View(nobet);
         }
 
-        // Hoca Silme - POST
         [HttpPost, ActionName("NobetDelete")]
         public IActionResult DeleteConfirmed(int id)
         {
@@ -141,8 +134,6 @@ namespace B221200015_WP_ODEV.Controllers
 
             }
             return RedirectToAction("NobetList");
-
         }
-
     }
 }

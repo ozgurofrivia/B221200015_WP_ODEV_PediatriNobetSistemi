@@ -21,7 +21,7 @@ namespace B221200015_WP_ODEV.Controllers
         {
             var hocaMusaitlikler = _context.HocaMusaitlikler
                 .Include(hm => hm.Hoca)
-                .OrderBy(hm => hm.Hoca.Ad)// Hoca bilgilerini dahil etmek için
+                .OrderBy(hm => hm.Hoca.Ad)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(searchTerm))
@@ -40,7 +40,7 @@ namespace B221200015_WP_ODEV.Controllers
         {
             var hocaMusaitlikler = _context.HocaMusaitlikler
                 .Include(hm => hm.Hoca)
-                .OrderBy(hm => hm.Hoca.Ad)// Hoca bilgilerini dahil etmek için
+                .OrderBy(hm => hm.Hoca.Ad)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(searchTerm))
