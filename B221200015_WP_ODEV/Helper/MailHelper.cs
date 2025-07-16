@@ -50,7 +50,7 @@ namespace B221200015_WP_ODEV.Helper
                 using (var client = new SmtpClient())
                 {
                     client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("wpodevpy@gmail.com", "fdro hffq mkky qbdd\r\n"); // Uygulama şifresini kullanın
+                    client.Authenticate("", "\r\n"); // Uygulama şifresini kullanın
                     client.Send(message);
                     client.Disconnect(true);
                 }
